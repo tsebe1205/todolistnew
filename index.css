@@ -6,9 +6,12 @@
 body {
     background: #1A1A1A;
     display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
     width: 100%;
     padding: 120px 50px;
+    gap: 30px;
 }
 
 .board {
@@ -19,7 +22,7 @@ body {
     padding: 20px;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
     border-radius: 12px;
     border: 1px solid #333;
     background: #101010;
@@ -47,12 +50,13 @@ body {
 
 .task {
     display: flex;
-    ` width: 240px;
+    width: 240px;
     padding: 12px;
     align-items: center;
     gap: 8px;
     border-radius: 8px;
     background: #1a1a1a;
+
 }
 
 .text {
@@ -70,4 +74,22 @@ body {
 
 .yellow {
     background-color: yellow;
+}
+
+.red {
+    background-color: red;
+}
+
+.white {
+    background-color: white;
+}
+
+.orange {
+    background-color: orange;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }

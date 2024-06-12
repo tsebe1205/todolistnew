@@ -45,71 +45,135 @@ const removeSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16
 </svg>`;
 
 
+
+
+
 const createBoard = (title, countValue, color) => {
 
 
+  const board = document.createElement("div");
+  const header = document.createElement("div");
+  const list = document.createElement("div");
+  const headerTitle = document.createElement("div");
+  const circle = document.createElement("div");
+  const headerText = document.createElement("p");
+  const count = document.createElement("div");
 
-    const board = document.createElement("div");
-    const header = document.createElement("div");
-    const list = document.createElement("div");
-    const headerTitle = document.createElement("div");
-    const circle = document.createElement("div");
-    const headerText = document.createElement("p");
-    const count = document.createElement("div");
-
-    board.className = "board";
-    header.className = "header";
-    headerTitle.className = "header-title";
-    circle.classList.add("circle");
-    circle.classList.add(color);
-
+  board.className = "board";
+  header.className = "header";
+  headerTitle.className = "header-title";
+  circle.classList.add("circle");
+  circle.classList.add(color);
 
 
 
-    count.innerText = countValue;
-    headerText.innerText = title;
-    list.className = 'list'
 
-    headerTitle.appendChild(circle);
-    headerTitle.appendChild(headerText);
-    header.appendChild(headerTitle);
-    header.appendChild(count);
-    board.appendChild(header);
-    board.appendChild(list);
-    body.appendChild(board);
+  count.innerText = countValue;
+  headerText.innerText = title;
+  list.className = 'list'
 
+  headerTitle.appendChild(circle);
+  headerTitle.appendChild(headerText);
+  header.appendChild(headerTitle);
+  header.appendChild(count);
+  board.appendChild(header);
+  board.appendChild(list);
+  body.appendChild(board);
 
 
 };
-createBoard('To do', "12", "yellow")
-
-
-const createTask = (desc) => {
-    console.log('second');
-    const list = document.getElementsByClassName("list")[0];
-    const task = document.createElement("div");
-    const circle = document.createElement("div");
-    const text = document.createElement("p");
-    const edit = document.createElement("div");
-    const remove = document.createElement("div");
 
 
 
-    task.className = "task";
-    circle.classList.add('circle');
-    circle.classList.add('black');
-    text.className = 'text';
-    text.innerText = desc;
-    edit.innerHTML = editSvg;
-    remove.innerHTML = removeSvg;
 
-    task.appendChild(circle);
-    task.appendChild(text);
-    task.appendChild(edit);
-    task.appendChild(remove);
-    list.appendChild(task);
+
+
+
+
+
+
+const createTask = (desc, index) => {
+  // console.log('second');
+  const list = document.getElementsByClassName("list")[index];
+  const task = document.createElement("div");
+  const circle = document.createElement("div");
+  const text = document.createElement("p");
+  const edit = document.createElement("div");
+  const remove = document.createElement("div");
+
+
+
+  task.className = "task";
+  circle.classList.add('circle');
+  circle.classList.add('green');
+  text.className = 'text';
+  text.innerText = desc;
+  edit.innerHTML = editSvg;
+  remove.innerHTML = removeSvg;
+
+  task.appendChild(circle);
+  task.appendChild(text);
+  task.appendChild(edit);
+  task.appendChild(remove);
+  list.appendChild(task);
 
 };
-createTask('You can write here')
-createTask('zaa')
+const board = [
+  {
+    title: "Todo",
+    bgcolor: "white"
+  },
+  {
+    title: "Inprogress",
+    bgcolor: "orange"
+  },
+  {
+    title: "Done",
+    bgcolor: "green"
+  },
+  {
+    title: "Blocked",
+    bgcolor: "red"
+  }
+
+]
+
+
+
+
+const data = {
+  todo: [
+    {
+      descrition: "title",
+    },
+    {
+      descrition: "title",
+    },
+    {
+      descrition: "title",
+    },
+  ],
+  inProgress: [
+    {
+      descrition: "in progress",
+    },
+  ],
+  blocked: [
+    {
+      descrition: "done",
+    },
+  ],
+  done: [
+    {
+      descrition: "Blocked",
+    },
+  ],
+};
+board.map((el) => {
+  createBoard(el.title, 5, el.bgcolor)
+});
+
+const keys = Object.keys(data);
+
+keys.map((el, index) => data[el].map((task) => createTask(task.descrition, index)))
 
