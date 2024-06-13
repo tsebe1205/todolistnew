@@ -45,32 +45,32 @@ const removeSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16
 </svg>`;
 
 
+const createElement = (tag, classList, innerText = "") => {
+  const element = document.createElement(tag);
+
+  classList.forEach((className) => {
+    element.classList.add(className)
+  });
+
+  element.innerText = innerText;
+  return element;
+}
 
 
 
 const createBoard = (title, countValue, color) => {
 
 
-  const board = document.createElement("div");
-  const header = document.createElement("div");
-  const list = document.createElement("div");
-  const headerTitle = document.createElement("div");
-  const circle = document.createElement("div");
-  const headerText = document.createElement("p");
-  const count = document.createElement("div");
-
-  board.className = "board";
-  header.className = "header";
-  headerTitle.className = "header-title";
-  circle.classList.add("circle");
-  circle.classList.add(color);
+  const board = createElement('div', ['board']);
+  const header = createElement('div', ['header']);
+  const list = createElement('div', ['list']);
+  const headerTitle = createElement('div', ['header-title']);
+  const circle = createElement('div', ['circle', color])
+  const headerText = createElement('p', [], title);
+  const count = createElement('div', [], countValue)
 
 
 
-
-  count.innerText = countValue;
-  headerText.innerText = title;
-  list.className = 'list'
 
   headerTitle.appendChild(circle);
   headerTitle.appendChild(headerText);
@@ -84,30 +84,16 @@ const createBoard = (title, countValue, color) => {
 };
 
 
-
-
-
-
-
-
-
-
 const createTask = (desc, index) => {
   // console.log('second');
   const list = document.getElementsByClassName("list")[index];
-  const task = document.createElement("div");
-  const circle = document.createElement("div");
-  const text = document.createElement("p");
-  const edit = document.createElement("div");
-  const remove = document.createElement("div");
+  const task = createElement('div', ['task']);
+  const circle = createElement('div', ['circle', 'green']);
+  const text = createElement("p", ["text"], desc);
+  const edit = createElement("div", []);
+  const remove = createElement("div", []);
 
 
-
-  task.className = "task";
-  circle.classList.add('circle');
-  circle.classList.add('green');
-  text.className = 'text';
-  text.innerText = desc;
   edit.innerHTML = editSvg;
   remove.innerHTML = removeSvg;
 
@@ -137,8 +123,6 @@ const board = [
   }
 
 ]
-
-
 
 
 const data = {
@@ -176,4 +160,6 @@ board.map((el) => {
 const keys = Object.keys(data);
 
 keys.map((el, index) => data[el].map((task) => createTask(task.descrition, index)))
+
+
 
