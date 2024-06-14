@@ -1,5 +1,5 @@
 const body = document.getElementsByTagName('body')[0];
-
+const button = document.getElementsByName('button')[0];
 
 
 // const createCard = (text, imageUrl) => {
@@ -45,6 +45,7 @@ const removeSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16
 </svg>`;
 
 
+
 const createElement = (tag, classList, innerText = "") => {
   const element = document.createElement(tag);
 
@@ -52,9 +53,19 @@ const createElement = (tag, classList, innerText = "") => {
     element.classList.add(className)
   });
 
-  element.innerText = innerText;
+  element.innerHTML = innerText;
   return element;
 }
+
+const addButton = createElement("button", ["addTask"], "Add Task");
+addButton.style.position = "fixed";
+addButton.style.top = "30px";
+addButton.style.right = "200px";
+
+
+body.appendChild(addButton);
+
+
 
 
 
@@ -84,18 +95,20 @@ const createBoard = (title, countValue, color) => {
 };
 
 
+
 const createTask = (desc, index) => {
   // console.log('second');
   const list = document.getElementsByClassName("list")[index];
   const task = createElement('div', ['task']);
   const circle = createElement('div', ['circle', 'green']);
   const text = createElement("p", ["text"], desc);
-  const edit = createElement("div", []);
-  const remove = createElement("div", []);
+  const edit = createElement("div", ["edit"], editSvg);
+  const remove = createElement("div", ["remove"], removeSvg);
+
+  edit.addEventListener("click", () => editTask(task, text));
+  remove.addEventListener("click", () => removeTask(task));
 
 
-  edit.innerHTML = editSvg;
-  remove.innerHTML = removeSvg;
 
   task.appendChild(circle);
   task.appendChild(text);
@@ -103,6 +116,33 @@ const createTask = (desc, index) => {
   task.appendChild(remove);
   list.appendChild(task);
 
+};
+const editTask = (task, text) => {
+  const input = document.createElement("input");
+  input.type = "text";
+  input.value = text.textContent;
+  task.replaceChild(input, text);
+
+  input.addEventListener("blur", () => {
+    text.textContent = input.value;
+    task.replaceChild(text, input);
+  });
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      input.blur();
+    }
+  });
+
+  input.focus();
+};
+
+const removeTask = (task) => {
+  task.remove();
+};
+
+const addTask = (description, boardIndex = 0) => {
+  createTask(description, boardIndex);
 };
 const board = [
   {
@@ -128,28 +168,23 @@ const board = [
 const data = {
   todo: [
     {
-      descrition: "title",
+      // descrition: "title",
     },
-    {
-      descrition: "title",
-    },
-    {
-      descrition: "title",
-    },
+
   ],
   inProgress: [
     {
-      descrition: "in progress",
+      // descrition: "in progress",
     },
   ],
   blocked: [
     {
-      descrition: "done",
+      // descrition: "done",
     },
   ],
   done: [
     {
-      descrition: "Blocked",
+      // descrition: "Blocked",
     },
   ],
 };
@@ -163,3 +198,12 @@ keys.map((el, index) => data[el].map((task) => createTask(task.descrition, index
 
 
 
+
+
+// Add event listener to Add Task button
+addButton.addEventListener("click", () => {
+  const description = prompt("Enter task description:");
+  if (description) {
+    addTask(description);
+  }
+});
