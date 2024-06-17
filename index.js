@@ -1,5 +1,4 @@
 const body = document.getElementsByTagName('body')[0];
-const button = document.getElementsByName('button')[0];
 
 
 // const createCard = (text, imageUrl) => {
@@ -168,23 +167,23 @@ const board = [
 const data = {
   todo: [
     {
-      // descrition: "title",
+      descrition: "title",
     },
 
   ],
   inProgress: [
     {
-      // descrition: "in progress",
+      descrition: "in progress",
     },
   ],
   blocked: [
     {
-      // descrition: "done",
+      descrition: "done",
     },
   ],
   done: [
     {
-      // descrition: "Blocked",
+      descrition: "Blocked",
     },
   ],
 };
